@@ -11,13 +11,13 @@ public abstract class IsometricController : MonoBehaviour
 
     protected Vector2 _moveDirection;
 
-    private void Update()
+    protected virtual void Update()
     {
         HandleInput();
         HandleAnimation();
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         HandleMovement();
     }

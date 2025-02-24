@@ -1,12 +1,19 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : IsometricController
 {
     [Header("Pathfinding")]
     [SerializeField] private Transform _target;
+    [SerializeField] private NavMeshAgent _agent;
 
     [Header("Animation")]
     [SerializeField] private SpriteRenderer _spriteRenderer;
+
+    [Header("State Machine")]
+    [SerializeField] private float _detectionRange;
+    [SerializeField] private float _fieldOfView;
+    [SerializeField] private float _attackRange;
 
     private EnemyBaseState _currentState;
     private EnemyIdleState _idleState;
@@ -25,7 +32,11 @@ public class EnemyController : IsometricController
 
     // Local Variables
     public Transform Target => _target;
+    public NavMeshAgent Agent => _agent;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
+    public float DetectionRange => _detectionRange;
+    public float FieldOfView => _fieldOfView;
+    public float AttackRange => _attackRange;
 
     public EnemyIdleState IdleState => _idleState;
     public EnemyPatrolState PatrolState => _patrolState;
@@ -34,12 +45,22 @@ public class EnemyController : IsometricController
 
     private void Start()
     {
+        _agent.updatePosition = false;
+        _agent.updateRotation = false;
+        _agent.updateUpAxis = false;
+
         _idleState = new EnemyIdleState(this);
         _patrolState = new EnemyPatrolState(this);
         _chaseState = new EnemyChaseState(this);
         _attackState = new EnemyAttackState(this);
 
         SwitchState(_idleState);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        _currentState.UpdateState();
     }
 
     public void Setup(Transform target)
@@ -50,6 +71,7 @@ public class EnemyController : IsometricController
     public void SwitchState(EnemyBaseState _baseState)
     {
         _currentState = _baseState;
+        _currentState.EnterState();
     }
 
     protected override void HandleInput()

@@ -9,7 +9,9 @@ public abstract class EnemyBaseState
         _enemyController = enemyController;
     }
 
+    public abstract void EnterState();
     public abstract void UpdateState();
+
     public abstract void HandleInput();
     public abstract void HandleAnimation();
 }

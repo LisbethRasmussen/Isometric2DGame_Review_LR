@@ -7,18 +7,34 @@ public class EnemyPatrolState : EnemyBaseState
         
     }
 
+    public override void EnterState()
+    {
+        
+    }
+
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
+        if (direction.magnitude <= _enemyController.DetectionRange)
+        {
+            float angle = Vector2.Angle(_enemyController.MoveDirection, direction);
+            if (angle < _enemyController.FieldOfView / 2f)
+            {
+                _enemyController.SwitchState(_enemyController.ChaseState);
+            }
+        }
     }
 
     public override void HandleInput()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void HandleAnimation()
     {
-        throw new System.NotImplementedException();
+        if (_enemyController.MoveDirection.x != 0)
+        {
+            _enemyController.SpriteRenderer.flipX = _enemyController.MoveDirection.x < 0;
+        }
     }
 }

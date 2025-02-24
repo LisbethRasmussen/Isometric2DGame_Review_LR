@@ -7,18 +7,35 @@ public class EnemyChaseState : EnemyBaseState
 
     }
 
+    public override void EnterState()
+    {
+
+    }
+
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
+        float distance = direction.magnitude;
+        if (distance <= _enemyController.AttackRange)
+        {
+            _enemyController.SwitchState(_enemyController.AttackState);
+        }
+        else if (distance > _enemyController.DetectionRange)
+        {
+            _enemyController.SwitchState(_enemyController.IdleState);
+        }
     }
 
     public override void HandleInput()
     {
-        throw new System.NotImplementedException();
+        _enemyController.Agent.nextPosition = _enemyController.transform.position;
+        _enemyController.Agent.SetDestination(_enemyController.Target.position);
+        _enemyController.MoveDirection = _enemyController.Agent.desiredVelocity.normalized;
     }
 
     public override void HandleAnimation()
     {
-        throw new System.NotImplementedException();
+        float direction = _enemyController.Target.position.x - _enemyController.transform.position.x;
+        _enemyController.SpriteRenderer.flipX = direction < 0f;
     }
 }
