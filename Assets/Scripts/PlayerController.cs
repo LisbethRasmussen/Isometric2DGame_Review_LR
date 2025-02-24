@@ -29,7 +29,10 @@ public class PlayerController : IsometricController
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(_lookDirection);
         float direction = mousePosition.x - transform.position.x;
-        _spriteRenderer.flipX = direction < 0;
+        if (Mathf.Abs(direction) > 0.1f)
+        {
+            _spriteRenderer.flipX = direction < 0;
+        }
     }
 
     private void OnEnable()
