@@ -32,9 +32,9 @@ public class EnemyPatrolState : EnemyBaseState
 
     public override void HandleAnimation()
     {
-        if (_enemyController.MoveDirection.x != 0)
+        if (_enemyController.MoveDirection.x != 0f)
         {
-            _enemyController.SpriteRenderer.flipX = _enemyController.MoveDirection.x < 0;
+            _enemyController.SpriteRenderer.flipX = _enemyController.MoveDirection.x < 0f;
         }
     }
 }

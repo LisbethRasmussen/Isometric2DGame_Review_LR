@@ -19,7 +19,7 @@ public class EnemyIdleState : EnemyBaseState
     public override void UpdateState()
     {
         _startPatrolTime -= Time.deltaTime;
-        if (_startPatrolTime <= 0)
+        if (_startPatrolTime <= 0f)
         {
             _enemyController.SwitchState(_enemyController.PatrolState);
         }
@@ -27,7 +27,7 @@ public class EnemyIdleState : EnemyBaseState
         Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
         if (direction.magnitude <= _enemyController.DetectionRange)
         {
-            Vector2 lookDirection = new Vector2(_enemyController.SpriteRenderer.flipX ? -1 : 1, 0);
+            Vector2 lookDirection = new Vector2(_enemyController.SpriteRenderer.flipX ? -1f : 1f, 0f);
             float angle = Vector2.Angle(lookDirection, direction);
             if (angle < _enemyController.FieldOfView / 2f)
             {
@@ -43,10 +43,10 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void HandleAnimation()
     {
-        if (_changeDirectionTime <= 0)
+        if (_changeDirectionTime <= 0f)
         {
             _enemyController.SpriteRenderer.flipX = !_enemyController.SpriteRenderer.flipX;
-            _changeDirectionTime = Random.Range(2f, 5f);
+            _changeDirectionTime = Random.Range(1f, 3f);
         }
         else
         {

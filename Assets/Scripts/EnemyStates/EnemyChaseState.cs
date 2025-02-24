@@ -30,7 +30,7 @@ public class EnemyChaseState : EnemyBaseState
     {
         _enemyController.Agent.nextPosition = _enemyController.transform.position;
         _enemyController.Agent.SetDestination(_enemyController.Target.position);
-        _enemyController.MoveDirection = _enemyController.Agent.desiredVelocity.normalized;
+        _enemyController.MoveDirection = _enemyController.Agent.desiredVelocity;
     }
 
     public override void HandleAnimation()

@@ -37,7 +37,7 @@ public class PlayerController : IsometricController
         float direction = mousePosition.x - transform.position.x;
         if (Mathf.Abs(direction) > 0.1f)
         {
-            _spriteRenderer.flipX = direction < 0;
+            _spriteRenderer.flipX = direction < 0f;
         }
     }
 
