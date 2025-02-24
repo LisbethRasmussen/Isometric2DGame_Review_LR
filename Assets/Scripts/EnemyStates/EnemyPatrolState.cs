@@ -34,7 +34,7 @@ public class EnemyPatrolState : EnemyBaseState
     {
         if (_enemyController.MoveDirection.x != 0f)
         {
-            _enemyController.SpriteRenderer.flipX = _enemyController.MoveDirection.x < 0f;
+            _enemyController.ChangeFacing(_enemyController.MoveDirection.x);
         }
     }
 }

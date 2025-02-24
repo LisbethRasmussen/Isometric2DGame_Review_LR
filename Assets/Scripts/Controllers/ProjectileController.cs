@@ -9,10 +9,9 @@ public class ProjectileController : IsometricController
     {
         _moveDirection = moveDirection;
         _weaponData = weaponData;
-
         _startPosition = transform.position;
 
-        float angle = Mathf.Atan2(_moveDirection.y, _moveDirection.x);
+        float angle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
@@ -28,7 +27,18 @@ public class ProjectileController : IsometricController
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.TryGetComponent(out EntityController entityController))
+        {
+            if (entityController.EntityData.Team != _weaponData.Entity.EntityData.Team)
+            {
+                entityController.TakeDamage(_weaponData.Damage);
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
 

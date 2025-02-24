@@ -19,6 +19,9 @@ public class EnemyAttackState : EnemyBaseState
         {
             _enemyController.SwitchState(_enemyController.ChaseState);
         }
+
+        _enemyController.WeaponController.AttackDirection = direction;
+        _enemyController.WeaponController.HandleAttack();
     }
 
     public override void HandleInput()
@@ -29,6 +32,6 @@ public class EnemyAttackState : EnemyBaseState
     public override void HandleAnimation()
     {
         float direction = _enemyController.Target.position.x - _enemyController.transform.position.x;
-        _enemyController.SpriteRenderer.flipX = direction < 0f;
+        _enemyController.ChangeFacing(direction);
     }
 }

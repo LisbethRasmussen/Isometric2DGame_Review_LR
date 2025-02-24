@@ -3,7 +3,8 @@
 [System.Serializable]
 public struct WeaponData
 {
-    public GameObject User;
-    public float Damage;
+    public EntityController Entity;
+    public int Damage;
+    public float AttackRate;
     public float Range;
 }

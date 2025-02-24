@@ -36,6 +36,6 @@ public class EnemyChaseState : EnemyBaseState
     public override void HandleAnimation()
     {
         float direction = _enemyController.Target.position.x - _enemyController.transform.position.x;
-        _enemyController.SpriteRenderer.flipX = direction < 0f;
+        _enemyController.ChangeFacing(direction);
     }
 }

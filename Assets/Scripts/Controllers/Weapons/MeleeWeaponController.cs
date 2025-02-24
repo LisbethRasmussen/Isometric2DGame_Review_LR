@@ -3,9 +3,18 @@ using UnityEngine;
 
 public class MeleeWeaponController : WeaponController
 {
-    public override void Attack()
+    protected override void Attack()
     {
-        Collider2D[] objectsHit = Physics2D.OverlapCircleAll(_contactPoint.position, _weaponData.Range);
-        Debug.Log(string.Join(",", objectsHit.Select(o => o.transform.name)));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_contactPoint.position, _weaponData.Range);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.TryGetComponent(out EntityController entityController))
+            {
+                if (entityController.EntityData.Team != _weaponData.Entity.EntityData.Team)
+                {
+                    entityController.TakeDamage(_weaponData.Damage);
+                }
+            }
+        }
     }
 }
