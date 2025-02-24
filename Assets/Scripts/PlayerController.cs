@@ -4,6 +4,10 @@ public class PlayerController : IsometricController
 {
     [Header("Animation")]
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Animator _animator;
+
+    [Header("Attack")]
+    [SerializeField] private int _equipmentIndex;
 
     private PlayerInputActions _playerControls;
     private Vector2 _lookDirection;
@@ -27,6 +31,8 @@ public class PlayerController : IsometricController
 
     protected override void HandleAnimation()
     {
+        _animator.SetInteger("Equipment", _equipmentIndex);
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(_lookDirection);
         float direction = mousePosition.x - transform.position.x;
         if (Mathf.Abs(direction) > 0.1f)
