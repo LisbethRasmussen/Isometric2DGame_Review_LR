@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class PlayerController : IsometricController
+public class PlayerController : EntityController
 {
     [Header("Animation")]
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Animator _animator;
 
     [Header("Attack")]
     [SerializeField] private int _equipmentIndex;
+    [SerializeField] private WeaponController[] _weaponControllers;
 
     private PlayerInputActions _playerControls;
     private Vector2 _lookDirection;
@@ -16,6 +16,13 @@ public class PlayerController : IsometricController
     private void Awake()
     {
         _playerControls = new PlayerInputActions();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        HandleAttack();
     }
 
     protected override void HandleInput()
@@ -37,7 +44,21 @@ public class PlayerController : IsometricController
         float direction = mousePosition.x - transform.position.x;
         if (Mathf.Abs(direction) > 0.1f)
         {
-            _spriteRenderer.flipX = direction < 0;
+            ChangeFacing(direction);
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if (_isAttacking && _equipmentIndex != 0)
+        {
+            WeaponController weaponController = _weaponControllers[_equipmentIndex - 1];
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(_lookDirection);
+            Vector3 contactPoint = weaponController.ContactPoint.position;
+            Vector2 attackDirection = mousePosition - new Vector2(contactPoint.x, contactPoint.y);
+
+            weaponController.AttackDirection = attackDirection;
+            weaponController.HandleAttack();
         }
     }
 
