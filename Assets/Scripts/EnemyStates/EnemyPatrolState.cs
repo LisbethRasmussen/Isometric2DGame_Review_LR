@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyPatrolState : EnemyBaseState
 {
     private int _currentPointIndex;
+    private float _standTime;
+    private float _skipPointTime;
     private Vector2[] _currentPath;
 
     public EnemyPatrolState(EnemyController enemyController) : base(enemyController)
@@ -13,6 +15,8 @@ public class EnemyPatrolState : EnemyBaseState
     public override void EnterState()
     {
         _currentPointIndex = 0;
+        _standTime = 0f;
+        _skipPointTime = 0f;
         _currentPath = GetRandomPath();
     }
 
@@ -41,14 +45,29 @@ public class EnemyPatrolState : EnemyBaseState
         }
 
         Vector2 currentPoint = _currentPath[_currentPointIndex];
-        if (Vector2.Distance(currentPoint, _enemyController.transform.position) <= _enemyController.MoveSpeed * Time.fixedDeltaTime)
+        if (Vector2.Distance(currentPoint, _enemyController.transform.position) <= _enemyController.MoveSpeed * Time.fixedDeltaTime || _skipPointTime <= 0)
         {
             _currentPointIndex++;
+            _standTime = Random.Range(0f, 1f);
+            _skipPointTime = 10f;
         }
 
-        _enemyController.Agent.nextPosition = _enemyController.transform.position;
-        _enemyController.Agent.SetDestination(currentPoint);
-        _enemyController.MoveDirection = _enemyController.Agent.desiredVelocity;
+        if (_standTime <= 0)
+        {
+            _enemyController.Agent.nextPosition = _enemyController.transform.position;
+            _enemyController.Agent.SetDestination(currentPoint);
+            _enemyController.MoveDirection = _enemyController.Agent.desiredVelocity;
+        }
+        else
+        {
+            _standTime -= Time.deltaTime;
+            _enemyController.MoveDirection = Vector2.zero;
+        }
+
+        if (_skipPointTime > 0)
+        {
+            _skipPointTime -= Time.deltaTime;
+        }
     }
 
     public override void HandleAnimation()
