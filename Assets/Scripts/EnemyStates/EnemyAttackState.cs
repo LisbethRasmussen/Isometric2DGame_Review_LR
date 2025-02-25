@@ -20,7 +20,8 @@ public class EnemyAttackState : EnemyBaseState
             _enemyController.SwitchState(_enemyController.ChaseState);
         }
 
-        _enemyController.WeaponController.AttackDirection = direction;
+        Vector2 attackDirection = _enemyController.Target.position - _enemyController.WeaponController.ContactPoint.position;
+        _enemyController.WeaponController.AttackDirection = attackDirection;
         _enemyController.WeaponController.HandleAttack();
     }
 

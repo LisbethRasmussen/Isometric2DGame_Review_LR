@@ -55,9 +55,9 @@ public class PlayerController : EntityController
             WeaponController weaponController = _weaponControllers[_equipmentIndex - 1];
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(_lookDirection);
             Vector3 contactPoint = weaponController.ContactPoint.position;
-            Vector2 direction = mousePosition - new Vector2(contactPoint.x, contactPoint.y);
+            Vector2 attackDirection = mousePosition - new Vector2(contactPoint.x, contactPoint.y);
 
-            weaponController.AttackDirection = direction;
+            weaponController.AttackDirection = attackDirection;
             weaponController.HandleAttack();
         }
     }

@@ -20,7 +20,7 @@ public class EnemyChaseState : EnemyBaseState
         {
             _enemyController.SwitchState(_enemyController.AttackState);
         }
-        else if (distance > _enemyController.DetectionRange)
+        else if (distance > _enemyController.DetectionRange * 2f)
         {
             _enemyController.SwitchState(_enemyController.IdleState);
         }

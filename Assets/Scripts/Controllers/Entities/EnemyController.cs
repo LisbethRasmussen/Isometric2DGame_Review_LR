@@ -6,6 +6,7 @@ public class EnemyController : EntityController
     [Header("Pathfinding")]
     [SerializeField] private Transform _target;
     [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private Vector2[] _patrolPoints;
 
     [Header("State Machine")]
     [SerializeField] private float _detectionRange;
@@ -33,6 +34,7 @@ public class EnemyController : EntityController
     // Local Variables
     public Transform Target => _target;
     public NavMeshAgent Agent => _agent;
+    public Vector2[] PatrolPoints => _patrolPoints;
     public float DetectionRange => _detectionRange;
     public float FieldOfView => _fieldOfView;
     public float AttackRange => _attackRange;
@@ -55,6 +57,11 @@ public class EnemyController : EntityController
         _attackState = new EnemyAttackState(this);
 
         SwitchState(_idleState);
+
+        if (_patrolPoints == null || _patrolPoints.Length < 1)
+        {
+            _patrolPoints = GameManager.Instance.DefaultPatrolPoints;
+        }
     }
 
     protected override void Update()

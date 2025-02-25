@@ -5,7 +5,8 @@ public class MeleeWeaponController : WeaponController
 {
     protected override void Attack()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(_contactPoint.position, _weaponData.Range);
+        Vector2 attackPoint = new Vector2(_contactPoint.position.x, _contactPoint.position.y) + _attackDirection * _weaponData.Range;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint, _weaponData.Range);
         foreach (Collider2D collider in colliders)
         {
             if (collider.TryGetComponent(out EntityController entityController))
