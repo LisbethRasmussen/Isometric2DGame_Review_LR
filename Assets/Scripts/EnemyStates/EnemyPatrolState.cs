@@ -18,6 +18,8 @@ public class EnemyPatrolState : EnemyBaseState
         _standTime = 0f;
         _skipPointTime = 0f;
         _currentPath = GetRandomPath();
+
+        _enemyController.Animator.SetInteger("State", 1);
     }
 
     public override void UpdateState()
@@ -76,6 +78,7 @@ public class EnemyPatrolState : EnemyBaseState
         {
             _enemyController.ChangeFacing(_enemyController.MoveDirection.x);
         }
+        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 
     private Vector2[] GetRandomPath()

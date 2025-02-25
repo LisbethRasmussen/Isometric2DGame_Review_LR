@@ -9,6 +9,8 @@ public class EnemyController : EntityController
     [SerializeField] private Vector2[] _patrolPoints;
 
     [Header("State Machine")]
+    [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _stateIndicator;
     [SerializeField] private float _detectionRange;
     [SerializeField] private float _fieldOfView;
     [SerializeField] private float _attackRange;
@@ -35,9 +37,13 @@ public class EnemyController : EntityController
     public Transform Target => _target;
     public NavMeshAgent Agent => _agent;
     public Vector2[] PatrolPoints => _patrolPoints;
+
+    public Animator Animator => _animator;
+    public SpriteRenderer StateIndicator => _stateIndicator;
     public float DetectionRange => _detectionRange;
     public float FieldOfView => _fieldOfView;
     public float AttackRange => _attackRange;
+
     public WeaponController WeaponController => _weaponController;
 
     public EnemyIdleState IdleState => _idleState;

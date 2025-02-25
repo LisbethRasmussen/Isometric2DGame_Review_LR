@@ -16,6 +16,9 @@ public class EnemyIdleState : EnemyBaseState
         _changeDirectionTime = Random.Range(1f, 3f);
         _startPatrolTime = Random.Range(5f, 10f);
         _faceDirection = Random.Range(0f, 1f) < 0.5f ? -1 : 1;
+        _enemyController.ChangeFacing(_faceDirection);
+
+        _enemyController.Animator.SetInteger("State", 0);
     }
 
     public override void UpdateState()
@@ -55,5 +58,6 @@ public class EnemyIdleState : EnemyBaseState
         {
             _changeDirectionTime -= Time.deltaTime;
         }
+        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 }

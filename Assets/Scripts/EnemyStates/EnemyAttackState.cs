@@ -9,7 +9,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void EnterState()
     {
-
+        _enemyController.Animator.SetInteger("State", 3);
     }
 
     public override void UpdateState()
@@ -34,5 +34,6 @@ public class EnemyAttackState : EnemyBaseState
     {
         float direction = _enemyController.Target.position.x - _enemyController.transform.position.x;
         _enemyController.ChangeFacing(direction);
+        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 }
