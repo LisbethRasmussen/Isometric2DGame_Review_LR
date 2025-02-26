@@ -92,6 +92,8 @@ public class EnemyController : EntityController
     protected override void HandleAnimation()
     {
         _currentState.HandleAnimation();
+
+        StateIndicator.flipX = transform.localScale.x < 0f;
     }
 
     protected override void HandleDeath()

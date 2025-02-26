@@ -34,6 +34,5 @@ public class EnemyAttackState : EnemyBaseState
     {
         float direction = _enemyController.Target.position.x - _enemyController.transform.position.x;
         _enemyController.ChangeFacing(direction);
-        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 }

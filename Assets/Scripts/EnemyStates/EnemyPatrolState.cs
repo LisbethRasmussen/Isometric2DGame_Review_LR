@@ -78,7 +78,6 @@ public class EnemyPatrolState : EnemyBaseState
         {
             _enemyController.ChangeFacing(_enemyController.MoveDirection.x);
         }
-        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 
     private Vector2[] GetRandomPath()

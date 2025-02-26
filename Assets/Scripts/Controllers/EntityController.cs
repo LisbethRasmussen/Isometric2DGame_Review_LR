@@ -18,6 +18,8 @@ public abstract class EntityController : IsometricController
     {
         HandleInput();
         HandleAnimation();
+
+        HandleHealthBar();
     }
 
     public void ChangeFacing(float direction)
@@ -38,6 +40,13 @@ public abstract class EntityController : IsometricController
         {
             HandleDeath();
         }
+    }
+
+    private void HandleHealthBar()
+    {
+        Vector3 healthBarScale = _healthBarController.transform.localScale;
+        healthBarScale.x = Mathf.Sign(transform.localScale.x);
+        _healthBarController.transform.localScale = healthBarScale;
     }
 
     protected abstract void HandleInput();

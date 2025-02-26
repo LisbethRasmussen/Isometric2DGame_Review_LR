@@ -58,6 +58,5 @@ public class EnemyIdleState : EnemyBaseState
         {
             _changeDirectionTime -= Time.deltaTime;
         }
-        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 }
