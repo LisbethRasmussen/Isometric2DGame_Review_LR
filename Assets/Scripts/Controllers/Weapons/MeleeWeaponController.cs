@@ -4,8 +4,9 @@ public class MeleeWeaponController : WeaponController
 {
     protected override void Attack()
     {
-        Vector2 attackPoint = new Vector2(_contactPoint.position.x, _contactPoint.position.y) + _attackDirection * _weaponData.Range;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint, _weaponData.Range);
+        Vector2 attackOffset = _attackDirection.normalized * _weaponData.Range / 2f;
+        Vector2 attackPoint = new Vector2(_contactPoint.position.x, _contactPoint.position.y) + attackOffset;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint, _weaponData.Range, GameManager.Instance.EntityLayer);
         foreach (Collider2D collider in colliders)
         {
             if (collider.TryGetComponent(out EntityController entityController))

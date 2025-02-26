@@ -4,9 +4,11 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private Vector2[] _defaultPatrolPoints;
     [SerializeField] private LayerMask _obstacleLayer;
+    [SerializeField] private LayerMask _entityLayer;
     
     public Vector2[] DefaultPatrolPoints => _defaultPatrolPoints;
     public LayerMask ObstacleLayer => _obstacleLayer;
+    public LayerMask EntityLayer => _entityLayer;
 
     private void OnDrawGizmos()
     {

@@ -15,10 +15,8 @@ public class ProjectileController : IsometricController
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
-
         if (Vector2.Distance(_startPosition, transform.position) >= _weaponData.Range)
         {
             Destroy(gameObject);

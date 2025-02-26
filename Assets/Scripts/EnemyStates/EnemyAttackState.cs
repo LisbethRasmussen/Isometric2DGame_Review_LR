@@ -15,7 +15,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void UpdateState()
     {
         Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
-        if (direction.magnitude > _enemyController.AttackRange)
+        if (direction.magnitude > _enemyController.AttackRange * 1.5f)
         {
             _enemyController.SwitchState(_enemyController.ChaseState);
         }

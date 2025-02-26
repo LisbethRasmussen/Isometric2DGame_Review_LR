@@ -48,6 +48,11 @@ public class PlayerController : EntityController
         }
     }
 
+    protected override void HandleDeath()
+    {
+
+    }
+
     private void HandleAttack()
     {
         if (_isAttacking && _equipmentIndex != 0)

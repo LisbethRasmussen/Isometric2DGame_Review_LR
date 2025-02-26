@@ -51,8 +51,10 @@ public class EnemyController : EntityController
     public EnemyChaseState ChaseState => _chaseState;
     public EnemyAttackState AttackState => _attackState;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
@@ -82,12 +84,6 @@ public class EnemyController : EntityController
         _target = target;
     }
 
-    public void SwitchState(EnemyBaseState _baseState)
-    {
-        _currentState = _baseState;
-        _currentState.EnterState();
-    }
-
     protected override void HandleInput()
     {
         _currentState.HandleInput();
@@ -96,6 +92,17 @@ public class EnemyController : EntityController
     protected override void HandleAnimation()
     {
         _currentState.HandleAnimation();
+    }
+
+    protected override void HandleDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SwitchState(EnemyBaseState _baseState)
+    {
+        _currentState = _baseState;
+        _currentState.EnterState();
     }
 
     public bool IsTargetVisible()
