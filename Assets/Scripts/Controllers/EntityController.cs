@@ -32,13 +32,18 @@ public abstract class EntityController : IsometricController
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector2 hitPoint)
     {
         _entityData.Health -= damage;
         _healthBarController.UpdateHealth((float)_entityData.Health / _maxHealth);
         if (_entityData.Health <= 0)
         {
             HandleDeath();
+        }
+        else
+        {
+            GameObject particleGO = Instantiate(GameManager.Instance.BloodParticlePrefab, hitPoint, Quaternion.identity, transform);
+            Destroy(particleGO, 1f);
         }
     }
 

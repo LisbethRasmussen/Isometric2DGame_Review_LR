@@ -23,6 +23,19 @@ public class PlayerController : EntityController
         base.Update();
 
         HandleAttack();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _equipmentIndex = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _equipmentIndex = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _equipmentIndex = 2;
+        }
     }
 
     protected override void HandleInput()

@@ -29,7 +29,8 @@ public class ProjectileController : IsometricController
         {
             if (entityController.EntityData.Team != _weaponData.Entity.EntityData.Team)
             {
-                entityController.TakeDamage(_weaponData.Damage);
+                Vector2 contactPoint = (transform.position + collision.transform.position) / 2f;
+                entityController.TakeDamage(_weaponData.Damage, contactPoint);
                 Destroy(gameObject);
             }
         }

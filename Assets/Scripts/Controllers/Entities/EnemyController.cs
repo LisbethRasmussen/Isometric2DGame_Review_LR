@@ -98,6 +98,9 @@ public class EnemyController : EntityController
 
     protected override void HandleDeath()
     {
+        GameObject particleGO = Instantiate(GameManager.Instance.DeathParticlePrefab, transform.position, Quaternion.identity);
+        Destroy(particleGO, 1f);
+
         Destroy(gameObject);
     }
 

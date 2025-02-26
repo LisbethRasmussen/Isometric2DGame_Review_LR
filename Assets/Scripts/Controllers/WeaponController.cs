@@ -2,14 +2,15 @@ using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
 {
-    [SerializeField] protected Transform _contactPoint;
-    [SerializeField] protected WeaponData _weaponData;
+    [SerializeField] private Transform _contactPoint;
+    [SerializeField] private WeaponData _weaponData;
 
     protected Vector2 _attackDirection;
 
     private float _attackCooldown;
 
     public Transform ContactPoint => _contactPoint;
+    public WeaponData WeaponData => _weaponData;
     public Vector2 AttackDirection
     {
         get => _attackDirection;

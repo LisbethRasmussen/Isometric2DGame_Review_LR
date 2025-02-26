@@ -8,6 +8,11 @@ public class HealthBarController : MonoBehaviour
     [SerializeField] private Gradient _colorGradient;
     [SerializeField] private Image _handleImage;
 
+    private void Start()
+    {
+        _handleImage.color = _colorGradient.Evaluate(_scrollbar.size);
+    }
+
     private void Update()
     {
         if (_scrollbar.size != _healthPercent)
