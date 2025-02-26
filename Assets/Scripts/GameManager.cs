@@ -3,8 +3,10 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private Vector2[] _defaultPatrolPoints;
+    [SerializeField] private LayerMask _obstacleLayer;
     
     public Vector2[] DefaultPatrolPoints => _defaultPatrolPoints;
+    public LayerMask ObstacleLayer => _obstacleLayer;
 
     private void OnDrawGizmos()
     {

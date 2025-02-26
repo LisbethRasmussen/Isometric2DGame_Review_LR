@@ -97,4 +97,12 @@ public class EnemyController : EntityController
     {
         _currentState.HandleAnimation();
     }
+
+    public bool IsTargetVisible()
+    {
+        Vector2 direction = _target.position - transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, GameManager.Instance.ObstacleLayer);
+        Debug.DrawLine(transform.position, transform.position + new Vector3(direction.x, direction.y, 0f));
+        return !hit;
+    }
 }

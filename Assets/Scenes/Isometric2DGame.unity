@@ -7019,7 +7019,7 @@ MonoBehaviour:
   _animator: {fileID: 505361894}
   _stateIndicator: {fileID: 256174716}
   _detectionRange: 10
-  _fieldOfView: 120
+  _fieldOfView: 180
   _attackRange: 7
   _weaponController: {fileID: 1625912673}
 --- !u!212 &505361893
@@ -7567,6 +7567,9 @@ MonoBehaviour:
   - {x: -20, y: 15}
   - {x: 20, y: 15}
   - {x: 0, y: 15}
+  _obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!4 &1128774866
 Transform:
   m_ObjectHideFlags: 0
@@ -7628,7 +7631,7 @@ GameObject:
   - component: {fileID: 1402430673}
   - component: {fileID: 1402430672}
   - component: {fileID: 1402430675}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}

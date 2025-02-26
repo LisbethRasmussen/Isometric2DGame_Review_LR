@@ -16,7 +16,7 @@ public class EnemyChaseState : EnemyBaseState
     {
         Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
         float distance = direction.magnitude;
-        if (distance <= _enemyController.AttackRange)
+        if (distance <= _enemyController.AttackRange && _enemyController.IsTargetVisible())
         {
             _enemyController.SwitchState(_enemyController.AttackState);
         }
