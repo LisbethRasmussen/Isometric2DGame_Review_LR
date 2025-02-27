@@ -7,7 +7,7 @@ public abstract class EntityController : IsometricController
 
     public EntityData EntityData => _entityData;
 
-    private int _maxHealth;
+    private float _maxHealth;
 
     protected virtual void Start()
     {
@@ -27,15 +27,14 @@ public abstract class EntityController : IsometricController
         if (direction != 0)
         {
             Vector3 localScale = transform.localScale;
-            localScale.x = Mathf.Abs(localScale.x) * (direction < 0f ? -1 : 1);
+            localScale.x = Mathf.Abs(localScale.x) * Mathf.Sign(direction);
             transform.localScale = localScale;
         }
     }
 
-    public void TakeDamage(int damage, Vector2 hitPoint)
+    public void TakeDamage(float damage, Vector2 hitPoint)
     {
         _entityData.Health -= damage;
-        _healthBarController.UpdateHealth((float)_entityData.Health / _maxHealth);
         if (_entityData.Health <= 0)
         {
             HandleDeath();
@@ -52,6 +51,16 @@ public abstract class EntityController : IsometricController
         Vector3 healthBarScale = _healthBarController.transform.localScale;
         healthBarScale.x = Mathf.Sign(transform.localScale.x);
         _healthBarController.transform.localScale = healthBarScale;
+
+        if (_entityData.Health > 0 && _entityData.Health < _maxHealth)
+        {
+            _entityData.Health += _entityData.HealingRate * Time.deltaTime;
+            if (_entityData.Health > _maxHealth)
+            {
+                _entityData.Health = _maxHealth;
+            }
+        }
+        _healthBarController.UpdateHealth(_entityData.Health / _maxHealth);
     }
 
     protected abstract void HandleInput();

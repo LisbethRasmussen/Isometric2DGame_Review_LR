@@ -6328,7 +6328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.8, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10099,8 +10099,8 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8050015651553850794}
-  - {fileID: 8295198526085781449}
+  - {fileID: 2824426526928569373}
+  - {fileID: 4437993523967334876}
   - {fileID: 1404825709}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10148,7 +10148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -5016609668572934508, guid: b8c1f63195d91304bb77ce7c0d1a89ea, type: 3}
+  m_Sprite: {fileID: 3350923837455920210, guid: 09db8d46ea0f30746838b659abc45fa3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10201,14 +10201,14 @@ MonoBehaviour:
   _rb: {fileID: 2095262900}
   _moveSpeed: 10
   _entityData:
-    Health: 10000
+    Health: 500
     Team: 0
   _healthBarController: {fileID: 1754226380}
   _animator: {fileID: 2095262903}
   _equipmentIndex: 0
   _weaponControllers:
-  - {fileID: 5368744731190364387}
-  - {fileID: 7158928588456846602}
+  - {fileID: 6891019906441687972}
+  - {fileID: 9159098711876964165}
 --- !u!58 &2095262902
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10267,7 +10267,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &203517887202149059
+--- !u!1 &1463951501667831406
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10275,25 +10275,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8050015651553850794}
-  - component: {fileID: 5368744731190364387}
-  m_Layer: 0
-  m_Name: MeleeWeapon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &2593520897197966508
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8295198526085781449}
-  - component: {fileID: 7158928588456846602}
+  - component: {fileID: 4437993523967334876}
+  - component: {fileID: 9159098711876964165}
   m_Layer: 0
   m_Name: RangedWeapon
   m_TagString: Untagged
@@ -10301,50 +10284,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5368744731190364387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203517887202149059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0efcd787e5be748bbe661ff85bc6b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _contactPoint: {fileID: 8050015651553850794}
-  _weaponData:
-    Entity: {fileID: 2095262901}
-    Damage: 40
-    AttackRate: 1
-    Range: 1
---- !u!114 &7158928588456846602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593520897197966508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808055c59a0226142bf075b38faa47cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _contactPoint: {fileID: 8295198526085781449}
-  _weaponData:
-    Entity: {fileID: 2095262901}
-    Damage: 20
-    AttackRate: 1
-    Range: 100
-  _projectilePrefab: {fileID: 2278747017003551059, guid: f6aa8ae1b0e88b248aeabaa617d7edf4, type: 3}
---- !u!4 &8050015651553850794
+--- !u!4 &2824426526928569373
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203517887202149059}
+  m_GameObject: {fileID: 8915623308016363506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.41, y: -0.03, z: 0}
@@ -10353,13 +10299,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2095262898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &8295198526085781449
+--- !u!4 &4437993523967334876
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593520897197966508}
+  m_GameObject: {fileID: 1463951501667831406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.375, y: 0.2, z: 0}
@@ -10368,6 +10314,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2095262898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6891019906441687972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915623308016363506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0efcd787e5be748bbe661ff85bc6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _contactPoint: {fileID: 2824426526928569373}
+  _weaponData:
+    Entity: {fileID: 2095262901}
+    Damage: 40
+    AttackRate: 1
+    Range: 0.5
+--- !u!1 &8915623308016363506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2824426526928569373}
+  - component: {fileID: 6891019906441687972}
+  m_Layer: 0
+  m_Name: MeleeWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &9159098711876964165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463951501667831406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808055c59a0226142bf075b38faa47cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _contactPoint: {fileID: 4437993523967334876}
+  _weaponData:
+    Entity: {fileID: 2095262901}
+    Damage: 20
+    AttackRate: 1
+    Range: 100
+  _projectilePrefab: {fileID: 2278747017003551059, guid: f6aa8ae1b0e88b248aeabaa617d7edf4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

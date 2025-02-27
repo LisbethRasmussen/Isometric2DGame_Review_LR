@@ -310,6 +310,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _entityData:
     Health: 50
+    HealingRate: 0
     Team: 1
   _healthBarController: {fileID: 3576746228855872980}
   _target: {fileID: 0}
@@ -317,10 +318,12 @@ MonoBehaviour:
   _patrolPoints: []
   _animator: {fileID: 1973150533000670463}
   _stateIndicator: {fileID: 1713799190340374455}
-  _detectionRange: 10
+  _detectionRange: 12
   _fieldOfView: 180
-  _attackRange: 7
+  _attackRange: 9
   _weaponController: {fileID: 1682878552351336395}
+  _abilityCooldown: 4
+  _abilityDuration: 1
 --- !u!50 &2964366861686120809
 Rigidbody2D:
   serializedVersion: 5
@@ -486,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.8, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

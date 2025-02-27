@@ -23,6 +23,13 @@ public class EnemyChaseState : EnemyBaseState
         else if (distance > _enemyController.DetectionRange * 1.5f)
         {
             _enemyController.SwitchState(_enemyController.IdleState);
+        } 
+        else if (_enemyController.Target.TryGetComponent(out EntityController entityController))
+        {
+            if (entityController.EntityData.Health <= 0)
+            {
+                _enemyController.SwitchState(_enemyController.IdleState);
+            }
         }
     }
 

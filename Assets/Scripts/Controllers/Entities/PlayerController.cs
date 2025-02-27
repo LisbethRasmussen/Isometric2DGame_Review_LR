@@ -8,6 +8,7 @@ public class PlayerController : EntityController
     [Header("Attack")]
     [SerializeField] private int _equipmentIndex;
     [SerializeField] private WeaponController[] _weaponControllers;
+    [SerializeField] private float _healingRate;
 
     private PlayerInputActions _playerControls;
     private Vector2 _lookDirection;
@@ -63,7 +64,10 @@ public class PlayerController : EntityController
 
     protected override void HandleDeath()
     {
+        GameObject particleGO = Instantiate(GameManager.Instance.DeathParticlePrefab, transform.position, Quaternion.identity);
+        Destroy(particleGO, 1f);
 
+        gameObject.SetActive(false);
     }
 
     private void HandleAttack()

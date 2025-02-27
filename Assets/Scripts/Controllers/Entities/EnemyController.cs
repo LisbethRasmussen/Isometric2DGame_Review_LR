@@ -17,6 +17,8 @@ public class EnemyController : EntityController
 
     [Header("Attack")]
     [SerializeField] private WeaponController _weaponController;
+    [SerializeField] private float _abilityCooldown;
+    [SerializeField] private float _abilityDuration;
 
     private EnemyBaseState _currentState;
     private EnemyIdleState _idleState;
@@ -24,6 +26,7 @@ public class EnemyController : EntityController
     private EnemyChaseState _chaseState;
     private EnemyAttackState _attackState;
 
+    #region Variable Getters
     // Isometric Controller Variables
     public Rigidbody2D Rb => _rb;
     public float MoveSpeed => _moveSpeed;
@@ -45,11 +48,14 @@ public class EnemyController : EntityController
     public float AttackRange => _attackRange;
 
     public WeaponController WeaponController => _weaponController;
+    public float AbilityCooldown => _abilityCooldown;
+    public float AbilityDuration => _abilityDuration;
 
     public EnemyIdleState IdleState => _idleState;
     public EnemyPatrolState PatrolState => _patrolState;
     public EnemyChaseState ChaseState => _chaseState;
     public EnemyAttackState AttackState => _attackState;
+    #endregion
 
     protected override void Start()
     {
@@ -112,6 +118,11 @@ public class EnemyController : EntityController
 
     public bool IsTargetVisible()
     {
+        if (!_target.gameObject.activeSelf)
+        {
+            return false;
+        }
+
         Vector2 direction = _target.position - transform.position;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, GameManager.Instance.ObstacleLayer);
         Debug.DrawLine(transform.position, transform.position + new Vector3(direction.x, direction.y, 0f));
