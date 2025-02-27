@@ -3,21 +3,69 @@ using UnityEngine;
 public abstract class EntityController : IsometricController
 {
     [SerializeField] private EntityData _entityData;
+    [SerializeField] private HealthBarController _healthBarController;
 
+    private float _maxHealth;
+    
+    #region Variable Getters
     public EntityData EntityData => _entityData;
+    #endregion
+
+    protected virtual void Start()
+    {
+        _maxHealth = _entityData.Health;
+    }
+
+    protected virtual void Update()
+    {
+        HandleInput();
+        HandleAnimation();
+
+        HandleHealthBar();
+    }
 
     public void ChangeFacing(float direction)
     {
         if (direction != 0)
         {
             Vector3 localScale = transform.localScale;
-            localScale.x = Mathf.Abs(localScale.x) * (direction < 0f ? -1 : 1);
+            localScale.x = Mathf.Abs(localScale.x) * Mathf.Sign(direction);
             transform.localScale = localScale;
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage, Vector2 hitPoint)
     {
         _entityData.Health -= damage;
+        if (_entityData.Health <= 0)
+        {
+            HandleDeath();
+        }
+        else
+        {
+            GameObject particleGO = Instantiate(GameManager.Instance.BloodParticlePrefab, hitPoint, Quaternion.identity, transform);
+            Destroy(particleGO, 1f);
+        }
     }
+
+    private void HandleHealthBar()
+    {
+        Vector3 healthBarScale = _healthBarController.transform.localScale;
+        healthBarScale.x = Mathf.Sign(transform.localScale.x);
+        _healthBarController.transform.localScale = healthBarScale;
+
+        if (_entityData.Health > 0 && _entityData.Health < _maxHealth)
+        {
+            _entityData.Health += _entityData.HealingRate * Time.deltaTime;
+            if (_entityData.Health > _maxHealth)
+            {
+                _entityData.Health = _maxHealth;
+            }
+        }
+        _healthBarController.UpdateHealth(_entityData.Health / _maxHealth);
+    }
+
+    protected abstract void HandleInput();
+    protected abstract void HandleAnimation();
+    protected abstract void HandleDeath();
 }

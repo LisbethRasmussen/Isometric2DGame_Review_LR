@@ -30,7 +30,7 @@ public class EnemyIdleState : EnemyBaseState
         }
 
         Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
-        if (direction.magnitude <= _enemyController.DetectionRange)
+        if (direction.magnitude <= _enemyController.DetectionRange && _enemyController.IsTargetVisible())
         {
             Vector2 lookDirection = new Vector2(_faceDirection, 0f);
             float angle = Vector2.Angle(lookDirection, direction);
@@ -58,6 +58,5 @@ public class EnemyIdleState : EnemyBaseState
         {
             _changeDirectionTime -= Time.deltaTime;
         }
-        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 }

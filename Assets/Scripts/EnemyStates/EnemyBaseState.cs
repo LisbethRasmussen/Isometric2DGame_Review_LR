@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public abstract class EnemyBaseState
 {
     protected EnemyController _enemyController;

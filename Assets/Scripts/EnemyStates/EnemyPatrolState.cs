@@ -25,7 +25,7 @@ public class EnemyPatrolState : EnemyBaseState
     public override void UpdateState()
     {
         Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
-        if (direction.magnitude <= _enemyController.DetectionRange)
+        if (direction.magnitude <= _enemyController.DetectionRange && _enemyController.IsTargetVisible())
         {
             float angle = Vector2.Angle(_enemyController.MoveDirection, direction);
             if (angle < _enemyController.FieldOfView / 2f)
@@ -78,7 +78,6 @@ public class EnemyPatrolState : EnemyBaseState
         {
             _enemyController.ChangeFacing(_enemyController.MoveDirection.x);
         }
-        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 
     private Vector2[] GetRandomPath()

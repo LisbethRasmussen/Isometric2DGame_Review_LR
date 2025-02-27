@@ -17,6 +17,8 @@ public class EnemyController : EntityController
 
     [Header("Attack")]
     [SerializeField] private WeaponController _weaponController;
+    [SerializeField] private float _abilityCooldown;
+    [SerializeField] private float _abilityDuration;
 
     private EnemyBaseState _currentState;
     private EnemyIdleState _idleState;
@@ -24,6 +26,7 @@ public class EnemyController : EntityController
     private EnemyChaseState _chaseState;
     private EnemyAttackState _attackState;
 
+    #region Variable Getters
     // Isometric Controller Variables
     public Rigidbody2D Rb => _rb;
     public float MoveSpeed => _moveSpeed;
@@ -45,14 +48,19 @@ public class EnemyController : EntityController
     public float AttackRange => _attackRange;
 
     public WeaponController WeaponController => _weaponController;
+    public float AbilityCooldown => _abilityCooldown;
+    public float AbilityDuration => _abilityDuration;
 
     public EnemyIdleState IdleState => _idleState;
     public EnemyPatrolState PatrolState => _patrolState;
     public EnemyChaseState ChaseState => _chaseState;
     public EnemyAttackState AttackState => _attackState;
+    #endregion
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
@@ -82,12 +90,6 @@ public class EnemyController : EntityController
         _target = target;
     }
 
-    public void SwitchState(EnemyBaseState _baseState)
-    {
-        _currentState = _baseState;
-        _currentState.EnterState();
-    }
-
     protected override void HandleInput()
     {
         _currentState.HandleInput();
@@ -96,5 +98,34 @@ public class EnemyController : EntityController
     protected override void HandleAnimation()
     {
         _currentState.HandleAnimation();
+
+        StateIndicator.flipX = transform.localScale.x < 0f;
+    }
+
+    protected override void HandleDeath()
+    {
+        GameObject particleGO = Instantiate(GameManager.Instance.DeathParticlePrefab, transform.position, Quaternion.identity);
+        Destroy(particleGO, 1f);
+
+        Destroy(gameObject);
+    }
+
+    public void SwitchState(EnemyBaseState _baseState)
+    {
+        _currentState = _baseState;
+        _currentState.EnterState();
+    }
+
+    public bool IsTargetVisible()
+    {
+        if (!_target.gameObject.activeSelf)
+        {
+            return false;
+        }
+
+        Vector2 direction = _target.position - transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, direction.magnitude, GameManager.Instance.ObstacleLayer);
+        Debug.DrawLine(transform.position, transform.position + new Vector3(direction.x, direction.y, 0f));
+        return !hit;
     }
 }

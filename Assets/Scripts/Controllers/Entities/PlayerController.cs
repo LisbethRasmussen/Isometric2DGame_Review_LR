@@ -34,6 +34,19 @@ public class PlayerController : EntityController
         _moveDirection = horizontal + vertical;
         _lookDirection = _playerControls.Player.Look.ReadValue<Vector2>();
         _isAttacking = _playerControls.Player.Attack.ReadValue<float>() > 0.5f;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _equipmentIndex = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _equipmentIndex = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _equipmentIndex = 2;
+        }
     }
 
     protected override void HandleAnimation()
@@ -48,6 +61,16 @@ public class PlayerController : EntityController
         }
     }
 
+    protected override void HandleDeath()
+    {
+        GameObject particleGO = Instantiate(GameManager.Instance.DeathParticlePrefab, transform.position, Quaternion.identity);
+        Destroy(particleGO, 1f);
+
+        gameObject.SetActive(false);
+
+        GameManager.Instance.EndGame();
+    }
+
     private void HandleAttack()
     {
         if (_isAttacking && _equipmentIndex != 0)
@@ -60,6 +83,11 @@ public class PlayerController : EntityController
             weaponController.AttackDirection = attackDirection;
             weaponController.HandleAttack();
         }
+    }
+
+    public void ChangeEquipment(int equipmentIndex)
+    {
+        _equipmentIndex = equipmentIndex;
     }
 
     private void OnEnable()

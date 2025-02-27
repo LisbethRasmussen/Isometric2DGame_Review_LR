@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public struct WeaponData
+public class WeaponData
 {
     public EntityController Entity;
-    public int Damage;
+    public float Damage;
     public float AttackRate;
     public float Range;
 }

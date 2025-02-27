@@ -16,13 +16,20 @@ public class EnemyChaseState : EnemyBaseState
     {
         Vector2 direction = _enemyController.Target.position - _enemyController.transform.position;
         float distance = direction.magnitude;
-        if (distance <= _enemyController.AttackRange)
+        if (distance <= _enemyController.AttackRange && _enemyController.IsTargetVisible())
         {
             _enemyController.SwitchState(_enemyController.AttackState);
         }
-        else if (distance > _enemyController.DetectionRange * 2f)
+        else if (distance > _enemyController.DetectionRange * 1.5f)
         {
             _enemyController.SwitchState(_enemyController.IdleState);
+        } 
+        else if (_enemyController.Target.TryGetComponent(out EntityController entityController))
+        {
+            if (entityController.EntityData.Health <= 0)
+            {
+                _enemyController.SwitchState(_enemyController.IdleState);
+            }
         }
     }
 
@@ -37,6 +44,5 @@ public class EnemyChaseState : EnemyBaseState
     {
         float direction = _enemyController.Target.position.x - _enemyController.transform.position.x;
         _enemyController.ChangeFacing(direction);
-        _enemyController.StateIndicator.flipX = _enemyController.transform.localScale.x < 0f;
     }
 }

@@ -1,6 +1,7 @@
 ﻿[System.Serializable]
-public struct EntityData
+public class EntityData
 {
-    public int Health;
+    public float Health;
+    public float HealingRate;
     public int Team;
 }

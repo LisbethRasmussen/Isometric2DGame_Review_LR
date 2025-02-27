@@ -11,12 +11,6 @@ public abstract class IsometricController : MonoBehaviour
 
     protected Vector2 _moveDirection;
 
-    protected virtual void Update()
-    {
-        HandleInput();
-        HandleAnimation();
-    }
-
     protected virtual void FixedUpdate()
     {
         HandleMovement();
@@ -30,7 +24,4 @@ public abstract class IsometricController : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + new Vector3(direction.x, direction.y, 0f) * 2f);
         ExtensionMethods.DrawEllipse(transform.position, 2f, VelocityScale * 2f, Color.white);
     }
-
-    protected virtual void HandleInput() { }
-    protected virtual void HandleAnimation() { }
 }
