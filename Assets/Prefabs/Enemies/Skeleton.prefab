@@ -345,7 +345,7 @@ MonoBehaviour:
     Entity: {fileID: 2989987577484830011}
     Damage: 30
     AttackRate: 1
-    Range: 0.5
+    Range: 1
 --- !u!1 &4266417592751487001
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +532,7 @@ MonoBehaviour:
   _moveSpeed: 7
   _entityData:
     Health: 80
+    HealingRate: 0
     Team: 1
   _healthBarController: {fileID: 5987123811584597251}
   _target: {fileID: 0}

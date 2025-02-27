@@ -9,6 +9,7 @@ public abstract class WeaponController : MonoBehaviour
 
     private float _attackCooldown;
 
+    #region Variable Getters
     public Transform ContactPoint => _contactPoint;
     public WeaponData WeaponData => _weaponData;
     public Vector2 AttackDirection
@@ -16,6 +17,7 @@ public abstract class WeaponController : MonoBehaviour
         get => _attackDirection;
         set => _attackDirection = value;
     }
+    #endregion
 
     private void Update()
     {

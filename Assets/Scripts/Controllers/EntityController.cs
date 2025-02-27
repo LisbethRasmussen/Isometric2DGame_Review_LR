@@ -5,9 +5,11 @@ public abstract class EntityController : IsometricController
     [SerializeField] private EntityData _entityData;
     [SerializeField] private HealthBarController _healthBarController;
 
-    public EntityData EntityData => _entityData;
-
     private float _maxHealth;
+    
+    #region Variable Getters
+    public EntityData EntityData => _entityData;
+    #endregion
 
     protected virtual void Start()
     {

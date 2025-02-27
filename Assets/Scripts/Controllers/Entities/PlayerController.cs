@@ -8,7 +8,6 @@ public class PlayerController : EntityController
     [Header("Attack")]
     [SerializeField] private int _equipmentIndex;
     [SerializeField] private WeaponController[] _weaponControllers;
-    [SerializeField] private float _healingRate;
 
     private PlayerInputActions _playerControls;
     private Vector2 _lookDirection;
@@ -68,6 +67,8 @@ public class PlayerController : EntityController
         Destroy(particleGO, 1f);
 
         gameObject.SetActive(false);
+
+        GameManager.Instance.EndGame();
     }
 
     private void HandleAttack()

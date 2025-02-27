@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -21,6 +22,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Vector2 _enemySpawnTime;
     [SerializeField] private float _minimumPlayerDistance;
 
+    private bool _isGameOver;
+    private float _enemySpawnCooldown;
+
+    #region Variables Getters
     public Transform PlayerTransform => _playerTransform;
     public Vector2[] DefaultPatrolPoints => _defaultPatrolPoints;
     public LayerMask ObstacleLayer => _obstacleLayer;
@@ -30,17 +35,25 @@ public class GameManager : Singleton<GameManager>
     public GameObject RangedAttackParticlePrefab => _rangedAttackParticlePrefab;
     public GameObject BloodParticlePrefab => _bloodParticlePrefab;
     public GameObject DeathParticlePrefab => _deathParticlePrefab;
-
-    private float _enemySpawnCooldown;
+    #endregion
 
     private void Start()
     {
-        _enemySpawnCooldown = Random.Range(_enemySpawnTime.x, _enemySpawnTime.y);
+        SetupGame();
     }
 
     private void Update()
     {
-        SpawnEnemies();
+        if (!_isGameOver)
+        {
+            SpawnEnemies();
+        }
+    }
+
+    private void SetupGame()
+    {
+        _isGameOver = false;
+        _enemySpawnCooldown = Random.Range(_enemySpawnTime.x, _enemySpawnTime.y);
     }
 
     private void SpawnEnemies()
@@ -72,6 +85,18 @@ public class GameManager : Singleton<GameManager>
         Debug.DrawLine(_mapBounds[1], new Vector2(_mapBounds[0].x, _mapBounds[1].y), Color.white);
         Debug.DrawLine(_mapBounds[1], new Vector2(_mapBounds[1].x, _mapBounds[0].y), Color.white);
         ExtensionMethods.DrawEllipse(_playerTransform.position, _minimumPlayerDistance, _minimumPlayerDistance, Color.white);
+    }
+
+    public void EndGame()
+    {
+        _isGameOver = true;
+        MenuManager.Instance.OpenEndScreen();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+        SetupGame();
     }
 
     private void OnDrawGizmos()
