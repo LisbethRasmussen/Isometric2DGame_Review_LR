@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ProjectileController : IsometricController
 {
@@ -13,6 +14,10 @@ public class ProjectileController : IsometricController
 
         float angle = Mathf.Atan2(_moveDirection.y, _moveDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        Vector3 localScale = transform.localScale;
+        localScale.y = Mathf.Abs(localScale.y) * Mathf.Sign(_moveDirection.x);
+        transform.localScale = localScale;
     }
 
     protected void Update()
@@ -25,6 +30,7 @@ public class ProjectileController : IsometricController
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        bool isObstacle = GameManager.Instance.ObstacleLayer == (GameManager.Instance.ObstacleLayer | (1 << collision.gameObject.layer));
         if (collision.TryGetComponent(out EntityController entityController))
         {
             if (entityController.EntityData.Team != _weaponData.Entity.EntityData.Team)
@@ -34,7 +40,7 @@ public class ProjectileController : IsometricController
                 Destroy(gameObject);
             }
         }
-        else
+        else if (isObstacle)
         {
             Destroy(gameObject);
         }

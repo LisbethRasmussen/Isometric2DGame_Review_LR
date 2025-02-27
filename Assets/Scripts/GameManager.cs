@@ -21,6 +21,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Vector2 _enemySpawnTime;
     [SerializeField] private float _minimumPlayerDistance;
 
+    public Transform PlayerTransform => _playerTransform;
     public Vector2[] DefaultPatrolPoints => _defaultPatrolPoints;
     public LayerMask ObstacleLayer => _obstacleLayer;
     public LayerMask EntityLayer => _entityLayer;

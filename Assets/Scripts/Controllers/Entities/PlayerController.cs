@@ -24,6 +24,17 @@ public class PlayerController : EntityController
         base.Update();
 
         HandleAttack();
+    }
+
+    protected override void HandleInput()
+    {
+        Vector2 _moveInput = _playerControls.Player.Move.ReadValue<Vector2>();
+        Vector2 horizontal = new Vector2(1f, -IsometricTranslation) * _moveInput.x;
+        Vector2 vertical = new Vector2(1f, IsometricTranslation) * _moveInput.y;
+
+        _moveDirection = horizontal + vertical;
+        _lookDirection = _playerControls.Player.Look.ReadValue<Vector2>();
+        _isAttacking = _playerControls.Player.Attack.ReadValue<float>() > 0.5f;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -37,17 +48,6 @@ public class PlayerController : EntityController
         {
             _equipmentIndex = 2;
         }
-    }
-
-    protected override void HandleInput()
-    {
-        Vector2 _moveInput = _playerControls.Player.Move.ReadValue<Vector2>();
-        Vector2 horizontal = new Vector2(1f, -IsometricTranslation) * _moveInput.x;
-        Vector2 vertical = new Vector2(1f, IsometricTranslation) * _moveInput.y;
-
-        _moveDirection = horizontal + vertical;
-        _lookDirection = _playerControls.Player.Look.ReadValue<Vector2>();
-        _isAttacking = _playerControls.Player.Attack.ReadValue<float>() > 0.5f;
     }
 
     protected override void HandleAnimation()
@@ -82,6 +82,11 @@ public class PlayerController : EntityController
             weaponController.AttackDirection = attackDirection;
             weaponController.HandleAttack();
         }
+    }
+
+    public void ChangeEquipment(int equipmentIndex)
+    {
+        _equipmentIndex = equipmentIndex;
     }
 
     private void OnEnable()
