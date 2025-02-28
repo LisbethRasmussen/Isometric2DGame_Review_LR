@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-
+﻿/// <summary>
+/// Store data for weapons.
+/// </summary>
 [System.Serializable]
 public class WeaponData
 {
