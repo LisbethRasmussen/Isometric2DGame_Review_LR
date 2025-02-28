@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Main class for managing the game loop.
+/// </summary>
 public class GameManager : Singleton<GameManager>
 {
     [Header("Entities")]
@@ -39,7 +42,11 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        SetupGame();
+        Time.timeScale = 0f;
+        _playerTransform.gameObject.SetActive(false);
+
+        _isGameOver = false;
+        _enemySpawnCooldown = Random.Range(_enemySpawnTime.x, _enemySpawnTime.y);
     }
 
     private void Update()
@@ -50,16 +57,14 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void SetupGame()
-    {
-        _isGameOver = false;
-        _enemySpawnCooldown = Random.Range(_enemySpawnTime.x, _enemySpawnTime.y);
-    }
-
+    /// <summary>
+    /// Spawns enemies every few seconds within the given boundaries, ensuring they spawn on a valid point of the map.
+    /// </summary>
     private void SpawnEnemies()
     {
         if (_enemySpawnCooldown <= 0)
         {
+            // Search for a random point in the given boundary, until it is far enough from the player and is not overlapping with any obstacle
             Vector2 spawnPoint = Vector2.zero;
             for (int i = 0; i < 20; i++)
             {
@@ -70,6 +75,7 @@ public class GameManager : Singleton<GameManager>
                     break;
                 }
             }
+            // Initialize and pass necessary variables to the enemy object
             GameObject enemyGO = Instantiate(_enemyPrefabs.SelectRandom(), spawnPoint, Quaternion.identity, _enemyTransform);
             enemyGO.GetComponent<EnemyController>().Setup(_playerTransform);
 
@@ -80,6 +86,7 @@ public class GameManager : Singleton<GameManager>
             _enemySpawnCooldown -= Time.deltaTime;
         }
 
+        // Visualize the available spawn area
         Debug.DrawLine(_mapBounds[0], new Vector2(_mapBounds[0].x, _mapBounds[1].y), Color.white);
         Debug.DrawLine(_mapBounds[0], new Vector2(_mapBounds[1].x, _mapBounds[0].y), Color.white);
         Debug.DrawLine(_mapBounds[1], new Vector2(_mapBounds[0].x, _mapBounds[1].y), Color.white);
@@ -87,20 +94,37 @@ public class GameManager : Singleton<GameManager>
         ExtensionMethods.DrawEllipse(_playerTransform.position, _minimumPlayerDistance, _minimumPlayerDistance, Color.white);
     }
 
+    /// <summary>
+    /// Executes logic to start the game.
+    /// </summary>
+    public void StartGame()
+    {
+        Time.timeScale = 1f;
+        _playerTransform.gameObject.SetActive(true);
+
+        MenuManager.Instance.CloseMenuScreen();
+    }
+
+    /// <summary>
+    /// Executes logic at the end of the game.
+    /// </summary>
     public void EndGame()
     {
         _isGameOver = true;
         MenuManager.Instance.OpenEndScreen();
     }
 
+    /// <summary>
+    /// Resets the scene and reloads the default variables.
+    /// </summary>
     public void RestartGame()
     {
         SceneManager.LoadScene(0);
-        SetupGame();
     }
 
     private void OnDrawGizmos()
     {
+        // If there are patrol points, visualize them
         if (_defaultPatrolPoints != null)
         {
             foreach (Vector2 patrolPoint in _defaultPatrolPoints)
