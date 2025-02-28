@@ -10,6 +10,7 @@ public abstract class IsometricController : MonoBehaviour
     /// Constant that defines the isometric translation factor, used for translating the direction of movement from regular to isometric space.
     /// </summary>
     public const float IsometricTranslation = 0.5f;
+
     /// <summary>
     /// Constant that ensures that the movement is consistent with the isometric projection.
     /// </summary>

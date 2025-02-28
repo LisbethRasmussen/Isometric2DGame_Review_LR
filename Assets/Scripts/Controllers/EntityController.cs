@@ -90,11 +90,13 @@ public abstract class EntityController : IsometricController
     /// Should be implemented to handle movement, attacks, or other interactions.
     /// </summary>
     protected abstract void HandleInput();
+
     /// <summary>
     /// Manages the animator and the visual representation of the entity.
     /// Should synchronize animations with the entity's current state and actions.
     /// </summary>
     protected abstract void HandleAnimation();
+
     /// <summary>
     /// Executes logic upon the death of the entity.
     /// Should handle clean-up, trigger death animations, and notify other systems if needed.
