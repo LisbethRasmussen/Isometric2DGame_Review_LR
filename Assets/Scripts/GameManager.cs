@@ -42,7 +42,11 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        SetupGame();
+        Time.timeScale = 0f;
+        _playerTransform.gameObject.SetActive(false);
+
+        _isGameOver = false;
+        _enemySpawnCooldown = Random.Range(_enemySpawnTime.x, _enemySpawnTime.y);
     }
 
     private void Update()
@@ -51,15 +55,6 @@ public class GameManager : Singleton<GameManager>
         {
             SpawnEnemies();
         }
-    }
-
-    /// <summary>
-    /// Initializes the default variables used by the game loop.
-    /// </summary>
-    private void SetupGame()
-    {
-        _isGameOver = false;
-        _enemySpawnCooldown = Random.Range(_enemySpawnTime.x, _enemySpawnTime.y);
     }
 
     /// <summary>
@@ -100,6 +95,17 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
+    /// Executes logic to start the game.
+    /// </summary>
+    public void StartGame()
+    {
+        Time.timeScale = 1f;
+        _playerTransform.gameObject.SetActive(true);
+
+        MenuManager.Instance.CloseMenuScreen();
+    }
+
+    /// <summary>
     /// Executes logic at the end of the game.
     /// </summary>
     public void EndGame()
@@ -114,7 +120,6 @@ public class GameManager : Singleton<GameManager>
     public void RestartGame()
     {
         SceneManager.LoadScene(0);
-        SetupGame();
     }
 
     private void OnDrawGizmos()

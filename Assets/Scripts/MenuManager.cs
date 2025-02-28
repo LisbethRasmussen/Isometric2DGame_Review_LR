@@ -1,14 +1,17 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Main class for managing UI elements.
 /// </summary>
 public class MenuManager : Singleton<MenuManager>
 {
+    [SerializeField] private GameObject _menuScreen;
     [SerializeField] private GameObject _endScreen;
 
     private void Start()
     {
+        _menuScreen.SetActive(true);
         _endScreen.SetActive(false);
     }
 
@@ -22,11 +25,11 @@ public class MenuManager : Singleton<MenuManager>
     }
 
     /// <summary>
-    /// Displays the UI for the end screen.
+    /// Executes start logic.
     /// </summary>
-    public void OpenEndScreen()
+    public void StartGame()
     {
-        _endScreen.SetActive(true);
+        GameManager.Instance.StartGame();
     }
 
     /// <summary>
@@ -35,5 +38,21 @@ public class MenuManager : Singleton<MenuManager>
     public void RestartGame()
     {
         GameManager.Instance.RestartGame();
+    }
+
+    /// <summary>
+    /// Displays the UI for the end screen.
+    /// </summary>
+    public void OpenEndScreen()
+    {
+        _endScreen.SetActive(true);
+    }
+
+    /// <summary>
+    /// Hides the menu UI from the screen.
+    /// </summary>
+    public void CloseMenuScreen()
+    {
+        _menuScreen.SetActive(false);
     }
 }
