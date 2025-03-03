@@ -1,3 +1,29 @@
+
+//--- Lisbeth: Alternatives to singletons used in the industry:
+
+// Zenject
+
+// VContainer
+
+
+//--- Lisbeth: Poor man's version of the above:
+
+// Create a non-MonoBehaviour static class, and hold instances in that central place instead.
+// Sign instances up in their Awake methods, call all instances by refering to the central place
+
+
+//--- Lisbeth: Fail safe suggestions:
+
+// use 'return' along with 'enable = false' instead of 'Destroy'
+
+// If something has not signed up, search for it, and if it does not exists, make an 'exception'
+// case instead of creating a new one, and solve the issue of whatever made the thing not exist
+// when it was needed.
+// The reason why you don't want to create a new one on the fly:
+// Consider your MenuManager. If the Singleton creates a new one of it on during the game, the
+// references for the menu _menuScreen and _endScreen would return null, and everything would
+// break regardless of the new instance which was just created.
+
 using UnityEngine;
 
 /// <summary>
@@ -37,16 +63,24 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    //--- Lisbeth: This virtual Awake method will create problems if overriden.
+    // Reason: Any logic placed outside the 'if' part, will still be executed, even when 'Destroy' is called.
+    // You could consider not making this Awake virtual in any way, but create another virtual method
+    // Which gets calle directly after setting the _instance, inside the 'if' part.
+
     protected virtual void Awake()
     {
         // Ensure that only one instance of the singleton exists and destroy any duplicates
         if (_instance == null)
         {
             _instance = this as T;
+            //--- Lisbeth: Call to 'X' virtual method
         }
         else if (_instance != this)
         {
             Destroy(gameObject);
         }
     }
+
+    //--- Lisbeth: virtual 'X' method located here
 }
